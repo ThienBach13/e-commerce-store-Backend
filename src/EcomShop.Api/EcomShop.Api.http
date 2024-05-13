@@ -1,0 +1,6 @@
+@EcomShop.Api_HostAddress = http://localhost:5241
+
+GET {{EcomShop.Api_HostAddress}}/api/v1/
+Accept: application/json
+
+###
