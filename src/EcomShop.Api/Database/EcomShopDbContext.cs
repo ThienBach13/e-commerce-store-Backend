@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 using EcomShop.Core.src.Entity;
-using EcomShop.Api.Helpers;
+using EcomShop.Api.Database;
 
 namespace EcomShop.Api.src.Persistence;
 
@@ -14,27 +14,21 @@ public class EcomShopDbContext : DbContext
   }
 
   public DbSet<Category> Categories { get; set; } = null!;
-  public DbSet<Address> Addresses { get; set; } = null!;
   public DbSet<Product> Products { get; set; } = null!;
+  public DbSet<ProductImage> ProductImages { get; set; } = null!;
   public DbSet<Order> Orders { get; set; } = null!;
-  public DbSet<User> User { get; set; } = null!;
-  public DbSet<ShoppingCart> ShoppingCarts { get; set; } = null!;
-
-  public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; } = null!;
-
   public DbSet<OrderedLineItem> OrderedLineItems { get; set; } = null!;
-  // public DbSet<User> Users { get; set; } = null!;
-  // public DbSet<Order> Orders { get; set; } = null!;
-  public DbSet<Review> Review { get; set; } = null!;
+  public DbSet<User> User { get; set; } = null!;
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     // db connection string: host; server name; username; pw; db name
-    optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Database=group2demo;Port=5433;Password=trungdn123"); // PostgreSQL
+    optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Database=EcomShop;Port=5432;Password=910034"); // PostgreSQL
     optionsBuilder.UseSnakeCaseNamingConvention(); // convert C# class names to snake_case table names in database
     base.OnConfiguring(optionsBuilder);
   }
 
+  [Obsolete]
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
     modelBuilder.Entity<Category>(entity =>
@@ -42,38 +36,20 @@ public class EcomShopDbContext : DbContext
       entity.HasKey(e => e.Id);
       entity.Property(e => e.Id).ValueGeneratedOnAdd();
       entity.Property(e => e.Name).IsRequired();
-      entity.Property(e => e.Description).IsRequired();
       entity.Property(e => e.Image).IsRequired();
       entity.HasIndex(e => e.Name).IsUnique();
-    });
-
-    modelBuilder.Entity<Address>(entity =>
-    {
-      entity.HasKey(e => e.Id);
-      entity.Property(e => e.StreetName).IsRequired();
-      entity.Property(e => e.StreetNumber);
-      entity.Property(e => e.UnitNumber);
-      entity.Property(e => e.PostalCode).IsRequired();
-      entity.Property(e => e.City).IsRequired();
-      entity.Property(e => e.UserId).IsRequired();
+      entity.HasData(SeedingData.GetCategoriesSeed());
     });
 
     modelBuilder.Entity<User>(entity =>
     {
       entity.HasKey(e => e.Id);
-      entity.Property(e => e.FirstName); // .IsRequired();
-      entity.Property(e => e.LastName); // .IsRequired();
+      entity.Property(e => e.Name).IsRequired();
       entity.Property(e => e.Email).IsRequired();
-      entity.Property(e => e.PasswordHash).IsRequired();
-      entity.Property(e => e.Phone); // .IsRequired();
+      entity.Property(e => e.Password).IsRequired();
       entity.Property(e => e.Role).IsRequired();
       entity.HasIndex(e => e.Email).IsUnique();
-    });
-
-    modelBuilder.Entity<ShoppingCart>(entity =>
-    {
-      entity.HasKey(e => e.Id);
-      entity.Property(e => e.UserId).IsRequired();
+      entity.HasData(SeedingData.GetUsersSeed());
     });
 
     modelBuilder.Entity<Product>(entity =>
@@ -82,34 +58,25 @@ public class EcomShopDbContext : DbContext
       entity.Property(e => e.Name).IsRequired();
       entity.Property(e => e.CategoryId).IsRequired();
       entity.Property(e => e.Price).IsRequired();
-      entity.Property(e => e.QuantityInStock).IsRequired();
-      entity.Property(e => e.Image);
       entity.Property(e => e.Description).IsRequired();
+      entity.HasData(SeedingData.GetProductsSeed());
     });
 
-    modelBuilder.Entity<ShoppingCartItem>(entity =>
+    modelBuilder.Entity<ProductImage>(entity =>
     {
       entity.HasKey(e => e.Id);
-      entity.Property(e => e.ShoppingCartId).IsRequired();
       entity.Property(e => e.ProductId).IsRequired();
-      entity.Property(e => e.Quantity).IsRequired();
+      entity.Property(e => e.Url).IsRequired();
+      entity.HasData(SeedingData.GetProductImagesSeed());
     });
+
     modelBuilder.Entity<Order>(entity =>
     {
       entity.HasKey(e => e.Id);
       entity.Property(e => e.UserId).IsRequired();
-      entity.Property(e => e.AddressId).IsRequired();
-      entity.Property(e => e.OrderDate).IsRequired();
+      entity.Property(e => e.CreatedAt).IsRequired();
     });
-    modelBuilder.Entity<Review>(entity =>
-    {
-      entity.HasKey(e => e.Id);
-      entity.Property(e => e.UserId).IsRequired();
-      entity.Property(e => e.ProductId).IsRequired();
-      entity.Property(e => e.Date).IsRequired();
-      entity.Property(e => e.Rating).IsRequired();
-      entity.Property(e => e.ReviewText).IsRequired();
-    });
+
     modelBuilder.Entity<OrderedLineItem>(entity =>
     {
       entity.HasKey(e => e.Id);

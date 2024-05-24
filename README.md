@@ -1,98 +1,114 @@
-# Fullstack Project
+# FullStack Project - Ecommerce Backend
 
-![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
-![SASS](https://img.shields.io/badge/SASS-v.4-hotpink)
-![React](https://img.shields.io/badge/React-v.18-blue)
-![Redux toolkit](https://img.shields.io/badge/Redux-v.1.9-brown)
 ![.NET Core](https://img.shields.io/badge/.NET%20Core-v.8-purple)
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.8-cyan)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.16-drakblue)
 
-This project involves creating a Fullstack project with React and Redux in the frontend and ASP.NET Core 7 in the backend. The goal is to provide a seamless experience for users, along with robust management system for administrators.
-
-- Frontend: SASS, TypeScript, React, Redux Toolkit
-- Backend: ASP.NET Core, Entity Framework Core, PostgreSQL
-
-You can follow the same topics as your backend project or choose the alternative one, between E-commerce and Library. You can reuse the previous frontend project, with necessary modification to fit your backend server.
+This project involves developing a backend system for an Ecommerce platform. It includes designing and implementing a database schema, REST API endpoints, custom PostgreSQL functions, and a backend server using ASP.NET Core and Entity Framework.
 
 ## Table of Contents
 
-1. [Instruction](#instruction)
-2. [Features](#features)
-   - [Mandatory features](#mandatory-features)
-   - [Extra features](#extra-features)
-3. [Requirements](#requirements)
-4. [Getting Started](#getting-started)
-5. [Testing](#testing)
+- [FullStack Project](#fullstack-project---online-store-backend)
+  - [Table of Contents](#table-of-contents)
+  - [Technologies and Libraries](#technologies-and-libraries)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Running project locally](#running-project-locally)
+      - [Prerequisites](#prerequisites-1)
+      - [Setup Instructions](#setup-instructions)
+  - [Database Schema and ERD Design](#database-schema-design-and-erd-design)
+  - [REST API Design](#rest-api-design)
+  - [Backend Server with ASP.NET Core](#backend-server-with-aspnet-core)
+  - [Unit Testing](#unit-testing)
+  - [Repository Structure](#repository-structure)
 
-## Instruction
+## Technologies and Libraries
 
-This repository should be used only for backend server. The frontend server should be done in a separate repository [here](https://github.com/Integrify-Finland/fs17-Frontend-project). You can modify your previous frontend project and instructors will check the submissions (pull requests) in the frontend project repository. The modified frontend server need to be connected with this backend server to make a whole fullstack project.
+| Technology                                                                                                                                 | Purpose                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| **[ASP.NET Core](https://dotnet.microsoft.com/en-us/apps/aspnet)**                                                                         | Core framework for building server-side logic, routing, middleware, and dependency management. |
+| **[Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli#create-the-database)** | ORM for database operations, abstracts SQL queries, simplifying data manipulation.             |
+| **[PostgreSQL](https://www.postgresql.org/)**                                                                                              | Relational database management system for storing all application data.                        |
 
-### Frontend
-
-If you only modify the previoud frontend project, you can work on the same repository and there is no need to open new pull request. However, you can get back to your previous pull request and remove all the labels. In case you want to make new project from scratch, you can fork and clone the original repository and open new pullrequest for your new frontend.
-
-### Backend
-
-Generate a solution file in this repository. All the project layers of backend server should be added into this solution.
-
-## Features
-
-### Mandatory features
-
-#### User Functionalities
-
-1. User Management: Users should be able to register for an account and manage their profile.
-2. Browse Products: Users should be able to view all available products and single product, search and sort products.
-3. Add to Cart: Users should be able to add products to a shopping cart, and manage cart.
-4. Oders: Users should be able to place orders and see the history of their orders.
-
-#### Admin Functionalities
-
-1. User Management: Admins should be able to manage all users.
-2. Product Management: Admins should be able to manage all products.
-3. Order Management: Admins should be able to manage all orders.
-
-### Bonus-point 
-
-1. Third party integrations, for example: Google Authentication, Sending Email, Payment gateway, etc.
-2. Extra features, for examples: dynamic pricing algorithms, chatbots, subscription, admin dashboard with analytics, etc.
-
-## Requirements
-
-1. Project should use CLEAN architecture, proper naming convention, security, and comply with Rest API. In README file, explain the structure of your project as well.
-2. Error handler: This will ensure any exceptions thrown in your application are handled appropriately and helpful error messages are returned.
-3. In backend server, unit testing (xunit) should be done, at least for Service(Use case) layer. We recommend to test entities, repositories and controllers as well.
-4. Document with Swagger: Make sure to annotate your API endpoints and generate a Swagger UI for easier testing and documentation.
-5. `README` file should sufficiently describe the project, as well as the deployment, link to frontend github.
-6. Frontend, backend, and database servers need to be available in the live servers.  
+| Library                                                                                                                                | Purpose                                                                                            |
+| -------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **[JWT Bearer Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.JwtBearer/9.0.0-preview.3.24172.13)** | Implements token-based authentication for securing API endpoints, requiring valid JWTs for access. |
+| **[xUnit](https://www.nuget.org/packages/xunit)**                                                                                      | Framework for unit testing, ensuring components function correctly in isolation.                   |
+| **[Moq](https://www.nuget.org/packages/Moq)**                                                                                          | Mocking library used with xUnit to simulate behavior of dependencies during testing.               |
 
 ## Getting Started
 
-1. Start with backend first before moving to frontend.
-2. In the backend, here is the recommended order:
+This is instructions to set up environment to run project on local machine.
 
-   - Plan Your Database Schema before start coding
+### Prerequisites
 
-   - Set Up the Project Structure
+Before begin, ensure these followings are installed:
 
-   - Build the models
+- **PostgreSQL.**
+- Or any SQL client that supports PostgreSQL.
 
-   - Create the Repositories
+### Running project locally
 
-   - Build the Services
+Follow these steps to run project on local machine.
 
-   - Set Up Authentication & Authorization
+#### Prerequisites
 
-   - Build the Controllers
+- .NET 8.0 SDK or later
+- PostgreSQL server
+- Git
 
-   - Implement Error Handling Middleware
+#### Setup Instructions
 
-3. You should focus on the mandatory features first. Make sure you have minimal working project before opting for advanced functionalities.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/ThienBach13/fs17_CSharp_FullStack
+   ```
+2. **Create the database**:
+   ```bash
+    dotnet tool install --global dotnet-ef
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+    dotnet ef migrations add CreateDb
+    dotnet ef database update
+   ```
+   > If there is Migrations folder already exists, delete it.
+3. **Start the Backend**: Navigate to the API layer directory.
+   ```bash
+   dotnet watch run
+   ```
+4. **Swagger UI**: Open on any web browser.
+   ```bash
+   http://localhost:<YOUR_LOCALHOST>/swagger/index.html
+   ```
+   ![Swagger UI page](/document/Img/swagger.png)
 
-Testing should be done along the development circle, early and regularly.
+## Database Schema and ERD Design
 
-## Testing
+Detailed database schema definitions including constraints, and relationships.
 
-Unit testing, and optionally integration testing, must be included for both frontend and backend code. Aim for high test coverage and ensure all major functionalities are covered.
+![Database schema](/document/Img/ERD.png)
+
+## REST API Design
+
+The table below outlines the organizational structure of our repository regarding the API design documents. Each entity within our REST API is associated with a specific folder path that contains the design files, blueprints, and detailed documentation. This structure ensures that all information related to a particular entity is centralized, allowing for easy navigation and maintenance by developers and collaborators.
+
+| Entity         | File name                                             | Description                                    |
+| -------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| Users          | [UsersAPI](/document/docs/UsersAPI.md)                | Contains endpoints for managing user data.     |
+| Products       | [ProductsAPI](/document/docs/ProductsAPI.md)          | Contains endpoints for managing product data.  |
+| Categories     | [CategoriesAPI](/document/docs/CategoriesAPI.md)      | Contains endpoints for managing category data. |
+| Orders         | [OrdersAPI](/document/docs/OrdersAPI.md)              | Contains endpoints for managing order data.    |
+| Authentication | [Authentication](/document/docs/AuthenticationAPI.md) | Contains endpoints for managing authencation.  |
+
+## Backend Server with ASP.NET Core
+
+### Clean Architecture
+
+- **Ecommerce.Core**: This layer includes classes and interfaces that define the basic entities like products, categories, users, and more.
+- **Ecommerce.Service**: This layer contains services that handle business logic and operations, interacting with the Core layer.
+- **Ecommerce.Controller**: This layer is responsible for handling incoming HTTP requests and returning responses.
+- **Ecommerce.WebAPI**: This houses the controllers and is the entry point for client interactions through HTTP requests.
+
+## Unit Testing
+
+Unit tests in this project are to ensure code quality and functionality.
+![UnitTests](/document/Img/test.png)

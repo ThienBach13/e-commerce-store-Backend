@@ -3,18 +3,10 @@ using EcomShop.Core.src.Common;
 
 namespace EcomShop.Application.src.ServiceAbstract
 {
-    public interface IProductService
+    public interface IProductService : IBaseService<ProductReadDto, ProductCreateDto, ProductUpdateDto, QueryOptions>
     {
-        Task<IEnumerable<ProductReadDto>> GetAllProductsAsync(ProductQueryOptions options);
-        Task<ProductReadDto> GetProductByIdAsync(int id);
-        Task<IEnumerable<ProductReadDto>> GetProductsByPaginationAsync(int offset, int limit);
-        Task<IEnumerable<ProductReadDto>> GetProductsByPriceRangeAsync(decimal priceMin, decimal priceMax);
-        Task<IEnumerable<ProductReadDto>> GetProductsByCategoriesAsync(int categoryId);
-        Task<IEnumerable<ProductReadDto>> SearchProductsByNameAsync(string searchKey);
-        Task<IEnumerable<ProductReadDto>> SortProductsByPriceAsync(string sortOrder);
-        Task<IEnumerable<ProductReadDto>> SortProductsByNameAsync(string sortOrder);
-        Task<ProductReadDto> CreateProductAsync(ProductCreateDto product);
-        Task<bool> UpdateProductByIdAsync(ProductUpdateDto product);
-        Task<bool> DeleteProductByIdAsync(int id);
+        Task<ProductReadDto> UpdateProductDetailsAsync(Guid productId, ProductUpdateDto updateDto);
+        Task<ProductReadDto> UpdateProductCategoryAsync(Guid productId, Guid newCategoryId);
+        Task<ProductReadDto> SetProductImagesAsync(Guid productId, ICollection<ProductImageCreateDto> imageDtos);
     }
 }

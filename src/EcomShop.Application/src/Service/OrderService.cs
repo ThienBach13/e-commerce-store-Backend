@@ -1,3 +1,4 @@
+using AutoMapper;
 using EcomShop.Application.src.DTO;
 using EcomShop.Application.src.ServiceAbstract;
 using EcomShop.Core.src.Common;
@@ -6,49 +7,34 @@ using EcomShop.Core.src.RepoAbstract;
 
 namespace EcomShop.Application.src.Service
 {
-    public class OrderService : IOrderService
+    public class OrderService : BaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto, QueryOptions>, IOrderService
     {
-        private readonly IOrderRepo _orderRepo;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IUserRepository _userRepository;
 
-        public OrderService(IOrderRepo orderRepo)
+        public OrderService(IOrderRepository orderRepository,
+        IUserRepository userRepository, IProductRepository productRepository,
+        IMapper mapper)
+            : base(orderRepository, mapper)
         {
-            _orderRepo = orderRepo;
+            _orderRepository = orderRepository;
+            _productRepository = productRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<OrderReadDto> CreateOrderAsync(OrderCreateDto orderDto)
+        public async Task<IEnumerable<OrderReadDto>> GetOrdersByUserIdAsync(Guid userId)
         {
-            var order = orderDto.CreateOrder(new Order());
-            var createdOrder = await _orderRepo.CreateOrderAsync(order);
-            var orderReadDto = new OrderReadDto();
-            orderReadDto.Transform(createdOrder);
-            return orderReadDto;
-        }
-
-        public async Task<bool> DeleteOrderByIdAsync(int id)
-        {
-            return await _orderRepo.DeleteOrderByIdAsync(id);
-        }
-
-        public async Task<IEnumerable<OrderReadDto>> GetAllOrdersAsync(OrderQueryOptions options)
-        {
-            var orders = await _orderRepo.GetAllOrdersAsync(options);
-            return OrderReadDto.ConvertList(orders);
-        }
-
-        public async Task<OrderReadDto> GetOrderByIdAsync(int id)
-        {
-            var order = await _orderRepo.GetOrderByIdAsync(id);
-            var orderReadDto = new OrderReadDto();
-            orderReadDto.Transform(order);
-            return orderReadDto;
-        }
-
-        public async Task<OrderReadDto> GetOrderByCustomerIdAsync(int customerId)
-        {
-            var order = await _orderRepo.GetOrderByCustomerIdAsync(customerId);
-            var orderReadDto = new OrderReadDto();
-            orderReadDto.Transform(order);
-            return orderReadDto;
+            var foundUser = await _userRepository.GetByIdAsync(userId);
+            if (foundUser is not null)
+            {
+                var result = _orderRepository.GetOrderByCustomerIdAsync(userId);
+                return _mapper.Map<IEnumerable<OrderReadDto>>(result);
+            }
+            else
+            {
+                throw new NotSupportedException($"Unable to find {userId}");
+            }
         }
     }
 }

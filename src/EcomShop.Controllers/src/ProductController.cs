@@ -25,7 +25,7 @@ namespace EcomShop.Controllers.src
                 return BadRequest("Invalid request body");
             }
 
-            var createdProduct = await _productService.CreateProductAsync(productDto);
+            var createdProduct = await _productService.CreateAsync(productDto);
             if (createdProduct == null)
             {
                 return StatusCode(500, "Failed to create product");
@@ -35,90 +35,44 @@ namespace EcomShop.Controllers.src
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ProductReadDto>> GetAllProductsAsync([FromQuery] ProductQueryOptions options)
+        public async Task<ActionResult<IEnumerable<ProductReadDto>>> GetAllProductsAsync([FromQuery] QueryOptions options)
         {
-            var products = await _productService.GetAllProductsAsync(options);
-            return products;
+            return Ok(await _productService.GetAllAsync(options));
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ProductReadDto> GetProductByIdAsync([FromRoute] int id)
+        [HttpGet("{id}")]
+        public async Task<ProductReadDto> GetProductByIdAsync([FromRoute] Guid id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
-            return product;
+            return await _productService.GetByIdAsync(id);
         }
-
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductReadDto>> GetProductsByPaginationAsync([FromQuery] QueryPagination query)
-        // {
-        //     var products = await _productService.GetProductsByPaginationAsync(query.offset, query.limit);
-        //     return products;
-        // }
-
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductReadDto>> GetProductsByPriceRangeAsync([FromQuery] decimal priceMin, [FromQuery] decimal priceMax)
-        // {
-        //     var products = await _productService.GetProductsByPriceRangeAsync(priceMin, priceMax);
-        //     return products;
-        // }
-
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductReadDto>> GetProductsByCategoriesAsync([FromQuery] int categoryId)
-        // {
-        //     var products = await _productService.GetProductsByCategoriesAsync(categoryId);
-        //     return products;
-        // }
-
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductReadDto>> SearchProductsByNameAsync([FromQuery] string searchKey)
-        // {
-        //     var products = await _productService.SearchProductsByNameAsync(searchKey);
-        //     return products;
-        // }
-
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductReadDto>> SortProductsByPriceAsync([FromQuery] string sortOrder)
-        // {
-        //     var products = await _productService.SortProductsByPriceAsync(sortOrder);
-        //     return products;
-        // }
-
-        // [HttpGet]
-        // public async Task<IEnumerable<ProductReadDto>> SortProductsByNameAsync([FromQuery] string sortOrder)
-        // {
-        //     var products = await _productService.SortProductsByNameAsync(sortOrder);
-        //     return products;
-        // }
 
         [Authorize(Roles = "Admin")]
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<ProductReadDto>> UpdateProductByIdAsync([FromRoute] int id, [FromBody] ProductUpdateDto updateDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ProductReadDto>> UpdateProductByIdAsync([FromRoute] Guid id, [FromBody] ProductUpdateDto updateDto)
         {
             if (updateDto == null)
             {
                 return BadRequest("Invalid request body");
             }
 
-            updateDto.Id = id;
-
-            var updatedProduct = await _productService.UpdateProductByIdAsync(updateDto);
+            var updatedProduct = await _productService.UpdateAsync(id, updateDto);
 
             return Ok(updatedProduct);
         }
 
         [Authorize(Roles = "Admin")]
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteProductByIdAsync([FromRoute] int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProductByIdAsync([FromRoute] Guid id)
         {
-            var result = await _productService.DeleteProductByIdAsync(id);
+            var result = await _productService.DeleteAsync(id);
 
             if (!result)
             {
                 return NotFound($"Product with ID {id} not found");
             }
 
-            return NoContent();
+            return Ok();
         }
-       
+
     }
 }

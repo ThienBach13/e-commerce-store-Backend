@@ -1,13 +1,11 @@
 using EcomShop.Application.src.DTO;
+using EcomShop.Core.src.Common;
 
 namespace EcomShop.Application.src.ServiceAbstract
 {
-    public interface ICategoryService
+    public interface ICategoryService : IBaseService<CategoryReadDto, CategoryCreateDto, CategoryUpdateDto, QueryOptions>
     {
-        Task<IEnumerable<CategoryReadDto>> GetAllCategoriesAsync();
-        Task<CategoryReadDto> GetCategoryByIdAsync(int categoryId);
-        Task<CategoryReadDto> CreateCategoryAsync(CategoryCreateDto category);
-        Task<bool> UpdateCategoryByIdAsync(CategoryUpdateDto category);
-        Task<bool> DeleteCategoryByIdAsync(int id);
+        Task<CategoryReadDto> UpdateCategoryNameAsync(Guid categoryId, string updatedName);
+        Task<CategoryReadDto> UpdateCategoryImageAsync(Guid categoryId, string UpdatedImage);
     }
 }

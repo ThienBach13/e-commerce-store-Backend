@@ -1,6 +1,9 @@
+using System.Security.Claims;
 using EcomShop.Application.src.DTO;
+using EcomShop.Application.src.Service;
 using EcomShop.Application.src.ServiceAbstract;
 using EcomShop.Core.src.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcomShop.Controllers.src
@@ -10,67 +13,56 @@ namespace EcomShop.Controllers.src
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly IOrderedLineItemService _orderedLineItemService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IOrderedLineItemService orderedLineItemService)
         {
             _orderService = orderService;
+            _orderedLineItemService = orderedLineItemService;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IEnumerable<OrderReadDto>> GetAllOrdersAsync([FromQuery] OrderQueryOptions options)
+        public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetAllOrdersAsync([FromQuery] QueryOptions options)
         {
-            try
-            {
-                return await _orderService.GetAllOrdersAsync(options);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return Ok(await _orderService.GetAllAsync(options));
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<OrderReadDto> GetOrderByIdAsync(int id)
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OrderReadDto>> GetOrderByIdAsync([FromRoute] Guid id)
         {
-            var order = await _orderService.GetOrderByIdAsync(id);
-            return order;
+            var order = await _orderService.GetByIdAsync(id);
+            return Ok(order);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<OrderReadDto>> CreateOrderAsync(OrderCreateDto orderDto)
         {
-            if (orderDto == null)
-            {
-                return BadRequest("Invalid request body");
-            }
-
-            var createdOrder = await _orderService.CreateOrderAsync(orderDto);
+            var createdOrder = await _orderService.CreateAsync(orderDto);
             if (createdOrder == null)
             {
                 return StatusCode(500, "Failed to create order");
             }
-
-            return createdOrder;
+            return Ok(createdOrder);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteOrder(int id)
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder([FromRoute] Guid id)
         {
-            var result = await _orderService.DeleteOrderByIdAsync(id);
-
-            if (!result)
-            {
-                return NotFound($"Order with ID {id} not found");
-            }
-
-            return NoContent();
+            return Ok(await _orderService.DeleteAsync(id));
         }
 
-        [HttpGet("customer")]
-        public async Task<OrderReadDto> GetOrderByCustomerIdAsync(int customerId)
+        [Authorize]
+        [HttpGet("user")]
+        public async Task<ActionResult<IEnumerable<OrderReadDto>>> GetAllOrderByUser()
         {
-            var order = await _orderService.GetOrderByCustomerIdAsync(customerId);
-            return order;
+            var id = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var orders = await _orderService.GetOrdersByUserIdAsync(Guid.Parse(id));
+            return Ok(orders);
+
         }
     }
 }

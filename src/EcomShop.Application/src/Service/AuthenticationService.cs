@@ -22,17 +22,16 @@ namespace EcomShop.Application.src.Service
         public async Task<bool> RegisterServiceAsync(UserCreateDto userRequest)
         {
 
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.PasswordHash);
-            userRequest.PasswordHash = passwordHash;
-            var rs = await _userService.CreateUserAsync(userRequest);
-            return rs;
-            // throw new NotImplementedException();
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(userRequest.Password);
+            userRequest.Password = passwordHash;
+            var rs = await _userService.CreateAsync(userRequest);
+            return rs != null;
         }
 
         public async Task<string> LoginServiceAsync(UserLoginDto userLoginDto)
         {
             var rs = await _userService.GetUserByUserEmail(userLoginDto.Email);
-            if (BCrypt.Net.BCrypt.Verify(userLoginDto.Password, rs.PasswordHash))
+            if (BCrypt.Net.BCrypt.Verify(userLoginDto.Password, rs.Password))
             {
                 return CreateToken(rs);
             }
@@ -62,7 +61,6 @@ namespace EcomShop.Application.src.Service
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            // var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return tokenHandler.WriteToken(token);
         }

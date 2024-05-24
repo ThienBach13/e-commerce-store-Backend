@@ -1,21 +1,19 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EcomShop.Core.src.Entity
 {
     public class OrderedLineItem
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "The Order Id field is required.")]
-        [Range(1, int.MaxValue, ErrorMessage = "Order Id must be a valid number.")]
-        public int OrderId { get; set; }
-        // Navigation property for Order
+        public Guid OrderId { get; set; }
         public Order? Order { get; set; }
 
         [Required(ErrorMessage = "The Product Id field is required.")]
-        [Range(1, int.MaxValue, ErrorMessage = "Product Id must be a valid number.")]
-        public int ProductId { get; set; }
-        // Navigation property for Product
+        public Guid ProductId { get; set; }
         public Product? Product { get; set; }
 
         [Required(ErrorMessage = "The Price field is required.")]

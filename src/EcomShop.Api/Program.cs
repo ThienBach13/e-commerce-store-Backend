@@ -9,12 +9,15 @@ using EcomShop.Application.src.ServiceAbstract;
 using EcomShop.Core.src.RepoAbstract;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
-using EcomShop.Api.Database;
+
+using EcomShop.Application.src.Shared;
+using EcomShop.Core.src.Entity;
+using EcomShop.Core.src.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 /* DI IoC Container Configurations */
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -80,16 +83,14 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProduct, ProductRepository>();
-
-builder.Services.AddScoped<IAddressService, AddressService>();
-builder.Services.AddScoped<IAddressRepo, AddressRepository>();
-
-builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
-builder.Services.AddScoped<ICartRepo, ShoppingCartRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductImageService, ProductImageService>();
+builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IOrderRepository, OrderRepo>();
+builder.Services.AddScoped<IBaseRepository<OrderedLineItem, QueryOptions>, OrderedLineItemRepo>();
+builder.Services.AddScoped<IOrderedLineItemService, OrderedLineItemService>();
 
 var app = builder.Build();
 

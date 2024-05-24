@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace EcomShop.Controllers.src
 {
     [ApiController]
-    [Authorize(Roles = "Admin")]
     [Route("api/v1/users")]
     public class UserController : ControllerBase
     {
@@ -18,78 +17,55 @@ namespace EcomShop.Controllers.src
             _userService = userService;
         }
 
-        //query string
-        // api/v1/users?firstname=ali&role=admin      
-        // [HttpGet]
-        // public async Task<IEnumerable<UserReadDto>> GetAllUsersAsync([FromQuery] UserQueryOptions options)
-        // {
-        //     try
-        //     {
-        //         return await _userService.GetAllUsersAsync(options);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         throw new Exception(ex.Message);
-        //     }
-        // }
-        [HttpGet]
-        public async Task<IEnumerable<UserReadDto>> GetAllUsersAsync()
+        [Authorize(Roles = "Admin")]
+        [HttpGet()]
+        public async Task<IActionResult> GetAllUsersAsync([FromQuery] QueryOptions options)
         {
-            try
-            {
-                return await _userService.GetAllUsersAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return Ok(await _userService.GetAllAsync(options));
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<UserReadDto>> GetUserByIdAsync(int id)
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserByIdAsync([FromRoute] Guid id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null)
-                return NotFound("User not found");
-            return Ok(user);
+            return Ok(await _userService.GetByIdAsync(id));
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult<UserReadDto>> CreateUserAsync(UserCreateDto userDto)
-        // {
-        //     if (userDto == null)
-        //     {
-        //         return BadRequest("Invalid request body");
-        //     }
+        [HttpPost()]
+        public async Task<ActionResult<UserReadDto>> CreateUserAsync([FromBody] UserCreateDto userDto)
+        {
+            if (userDto == null)
+            {
+                return BadRequest("Invalid request body");
+            }
 
-        //     var createdUser = await _userService.CreateUserAsync(userDto);
-        //     if (createdUser == null)
-        //     {
-        //         return StatusCode(500, "Failed to create user");
-        //     }
+            var createdUser = await _userService.CreateAsync(userDto);
+            if (createdUser == null)
+            {
+                return StatusCode(500, "Failed to create user");
+            }
 
-        //     return createdUser;
-        // }
+            return createdUser;
+        }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<UserReadDto>> UpdateUser(int id, UserUpdateDto updateDto)
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserReadDto>> UpdateUser(Guid id, UserUpdateDto updateDto)
         {
             if (updateDto == null)
             {
                 return BadRequest("Invalid request body");
             }
 
-            updateDto.Id = id;
-
-            var updatedUser = await _userService.UpdateUserByIdAsync(updateDto);
+            var updatedUser = await _userService.UpdateAsync(id, updateDto);
 
             return Ok(updatedUser);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            var result = await _userService.DeleteUserByIdAsync(id);
+            var result = await _userService.DeleteAsync(id);
 
             if (!result)
             {

@@ -1,3 +1,4 @@
+using AutoMapper;
 using EcomShop.Application.src.DTO;
 using EcomShop.Application.src.ServiceAbstract;
 using EcomShop.Core.src.Common;
@@ -6,84 +7,105 @@ using EcomShop.Core.src.RepoAbstract;
 
 namespace EcomShop.Application.src.Service
 {
-    public class ProductService : IProductService
+    public class ProductService : BaseService<Product, ProductReadDto, ProductCreateDto, ProductUpdateDto, QueryOptions>, IProductService
     {
-        private readonly IProduct _productRepository;
-
-        public ProductService(IProduct productRepository)
+        private IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private IProductImageRepository _productImageRepository;
+        public ProductService(IProductRepository productRepository, IMapper mapper, IProductImageRepository productImageRepository, ICategoryRepository categoryRepository) : base(productRepository, mapper)
         {
             _productRepository = productRepository;
-        }
-        public async Task<ProductReadDto> CreateProductAsync(ProductCreateDto product)
-        {
-            var productEntity = ProductCreateDto.CreateProduct(product);
-            var createdProduct = await _productRepository.CreateProductAsync(productEntity);
-            var createdProductDto = new ProductReadDto();
-            createdProductDto.Transform(createdProduct);
-            return createdProductDto;
-        }
-        public async Task<IEnumerable<ProductReadDto>> GetAllProductsAsync(ProductQueryOptions queryOptions)
-        {
-            var products = await _productRepository.GetAllProductsAsync(queryOptions);
-            return ProductReadDto.ConvertList(products);
+            _productImageRepository = productImageRepository;
+            _categoryRepository = categoryRepository;
         }
 
-        public async Task<ProductReadDto> GetProductByIdAsync(int id)
+        public async Task<ProductReadDto> UpdateProductDetailsAsync(Guid productId, ProductUpdateDto updateDto)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
-            var productDto = new ProductReadDto();
-            productDto.Transform(product);
-            return productDto;
+            var product = await _productRepository.GetByIdAsync(productId) ?? throw new KeyNotFoundException("Product not found.");
+            product.UpdateDetails(updateDto.Name, updateDto.Price, updateDto.Description);
+            await _productRepository.UpdateAsync(product);
+            return _mapper.Map<ProductReadDto>(product);
         }
 
-        public async Task<IEnumerable<ProductReadDto>> GetProductsByPaginationAsync(int offset, int limit)
+        public async Task<ProductReadDto> UpdateProductCategoryAsync(Guid productId, Guid newCategoryId)
         {
-            var products = await _productRepository.GetProductsByPaginationAsync(offset, limit);
-            return ProductReadDto.ConvertList(products);
+            var product = await _productRepository.GetByIdAsync(productId) ?? throw new KeyNotFoundException("Product not found.");
+            var category = await _categoryRepository.GetByIdAsync(newCategoryId) ?? throw new KeyNotFoundException("Category not found.");
+            product.UpdateCategory(category.Id);
+            await _productRepository.UpdateAsync(product);
+            return _mapper.Map<ProductReadDto>(product);
         }
 
-        public async Task<IEnumerable<ProductReadDto>> GetProductsByPriceRangeAsync(decimal priceMin, decimal priceMax)
+        public async Task<ProductReadDto> SetProductImagesAsync(Guid productId, ICollection<ProductImageCreateDto> imageDtos)
         {
-            var products = await _productRepository.GetProductsByPriceRangeAsync(priceMin, priceMax);
-            return ProductReadDto.ConvertList(products);
+            var product = await _productRepository.GetByIdAsync(productId) ?? throw new KeyNotFoundException("Product not found.");
+            var images = imageDtos.Select(dto => new ProductImage(productId, dto.Url)).ToList();
+            product.SetProductImages(images);
+            await _productRepository.UpdateAsync(product);
+            return _mapper.Map<ProductReadDto>(product);
         }
 
-        public async Task<IEnumerable<ProductReadDto>> GetProductsByCategoriesAsync(int categoryId)
+        public override async Task<ProductReadDto> CreateAsync(ProductCreateDto createDto)
         {
-            var products = await _productRepository.GetProductsByCategoriesAsync(categoryId);
-            return ProductReadDto.ConvertList(products);
+            var product = _mapper.Map<Product>(createDto);
+
+            // var images = new List<ProductImage>();
+
+            // if (createDto.Images != null)
+            // {
+            //     foreach (var imageUrl in createDto.Images)
+            //     {
+            //         var productImage = new ProductImage(product.Id, imageUrl);
+            //         images.Add(productImage);
+            //     }
+            // }
+            // product.SetProductImages(images);
+            await _productRepository.AddAsync(product);
+            var productReadDto = _mapper.Map<ProductReadDto>(product);
+            return productReadDto;
         }
 
-        public async Task<IEnumerable<ProductReadDto>> SearchProductsByNameAsync(string searchKey)
+        public override async Task<ProductReadDto> UpdateAsync(Guid id, ProductUpdateDto updateDto)
         {
-            var products = await _productRepository.SearchProductsByNameAsync(searchKey);
-            return ProductReadDto.ConvertList(products);
-        }
+            var product = await _productRepository.GetByIdAsync(id);
 
-        public async Task<IEnumerable<ProductReadDto>> SortProductsByPriceAsync(string sortOrder)
-        {
-            var products = await _productRepository.SortProductsByPriceAsync(sortOrder);
-            return ProductReadDto.ConvertList(products);
-        }
+            if (!string.IsNullOrEmpty(updateDto.Name))
+            {
 
-        public async Task<IEnumerable<ProductReadDto>> SortProductsByNameAsync(string sortOrder)
-        {
-            var products = await _productRepository.SortProductsByPriceAsync(sortOrder);
-            return ProductReadDto.ConvertList(products);
-        }
-        public async Task<bool> UpdateProductByIdAsync(ProductUpdateDto productDto)
-        {
-            var existingProduct = await _productRepository.GetProductByIdAsync(productDto.Id);
-            if (existingProduct == null)
-                return false;
+                product.Name = updateDto.Name;
+            }
 
-            existingProduct = productDto.UpdateProduct(existingProduct);
-            return await _productRepository.UpdateProductByIdAsync(existingProduct);
-        }
+            if (updateDto.Price.HasValue)
+            {
 
-        public async Task<bool> DeleteProductByIdAsync(int id)
-        {
-            return await _productRepository.DeleteProductByIdAsync(id);
+                product.Price = updateDto.Price.Value;
+            }
+
+            if (updateDto.CategoryId != null)
+            {
+
+                product.CategoryId = updateDto.CategoryId.Value;
+            }
+
+            if (updateDto.Images != null && updateDto.Images.Any())
+            {
+                foreach (var image in updateDto.Images)
+                {
+                    {
+                        var existingImage = await _productImageRepository.CheckImageAsync(image);
+                        if (existingImage == false)
+                        {
+                            var newImage = new ProductImage(productId: product.Id, url: image);
+                            await _productImageRepository.AddAsync(newImage);
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine($"Entity after update: {product}");
+
+            var newProduct = await _repository.UpdateAsync(product);
+            return _mapper.Map<ProductReadDto>(newProduct);
         }
     }
 }
