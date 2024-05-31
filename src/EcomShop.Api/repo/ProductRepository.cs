@@ -53,9 +53,8 @@ namespace EcomShop.Api.repo
         public override async Task<Product> GetByIdAsync(Guid id)
         {
             return await _data
-             .Include(p => p.Category)
              .Include(p => p.Images)
-             .SingleOrDefaultAsync(p => p.Id == id);
+             .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

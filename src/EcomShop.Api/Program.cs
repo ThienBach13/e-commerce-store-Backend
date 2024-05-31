@@ -18,6 +18,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("AllowAll",
+      builder =>
+      {
+        builder.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader();
+      });
+});
 /* DI IoC Container Configurations */
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -103,7 +114,11 @@ app.UseSwaggerUI(c =>
   c.DocExpansion(DocExpansion.None);
 });
 
+
+
+app.UseRouting();
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EcomShop.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -133,10 +133,10 @@ namespace EcomShop.Api.Migrations
                 columns: new[] { "id", "image", "name" },
                 values: new object[,]
                 {
-                    { new Guid("080b309c-0931-4add-b380-3b17d6bacdd9"), "https://images.unsplash.com/photo-1500995617113-cf789362a3e1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Toys" },
-                    { new Guid("3cdba833-5f0d-4237-9776-2da2d1753b88"), "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Home Goods" },
-                    { new Guid("952c8da5-fdad-47c1-b2db-99038bf9aaed"), "https://plus.unsplash.com/premium_photo-1682435561654-20d84cef00eb?q=80&w=1918&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Shoes" },
-                    { new Guid("af46b819-fabf-4dd3-ad7d-15e83aae9088"), "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Electronics" }
+                    { new Guid("183c939a-cd7b-4ffb-83ea-e91f9085e004"), "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Electronics" },
+                    { new Guid("33400c02-411a-4fd7-b9e6-a9c3ec963f9d"), "https://images.unsplash.com/photo-1500995617113-cf789362a3e1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Toys" },
+                    { new Guid("553950a3-9a67-46a0-9888-c7845543ea38"), "https://plus.unsplash.com/premium_photo-1682435561654-20d84cef00eb?q=80&w=1918&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Shoes" },
+                    { new Guid("5554197c-61bd-4f40-b0da-b6fac201913a"), "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Home Goods" }
                 });
 
             migrationBuilder.InsertData(
@@ -144,8 +144,8 @@ namespace EcomShop.Api.Migrations
                 columns: new[] { "id", "avatar", "email", "name", "password", "role" },
                 values: new object[,]
                 {
-                    { new Guid("673f692f-8f0a-462e-9624-63c8bcd2ec13"), "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", "admin@mail.com", "Admin", "admin@123", 0 },
-                    { new Guid("752816e8-da77-4c6b-b4c7-0531136d34f3"), "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", "john@mail.com", "John", "john@123", 1 }
+                    { new Guid("c25a7708-c759-424c-84ee-5f7f9fd844a7"), "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", "admin@mail.com", "Admin", "admin@123", 0 },
+                    { new Guid("ff78662b-d35d-46e4-91b4-3c012e9262d2"), "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", "john@mail.com", "John", "john@123", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -153,14 +153,14 @@ namespace EcomShop.Api.Migrations
                 columns: new[] { "id", "category_id", "description", "name", "price" },
                 values: new object[,]
                 {
-                    { new Guid("1d5dd931-5cca-4370-a0ee-2f3c4358b980"), new Guid("3cdba833-5f0d-4237-9776-2da2d1753b88"), "Say goodbye to manual vacuuming with the Robot Vacuum Pro. This intelligent robot cleaner navigates your home effortlessly, removing dirt, dust, and pet hair with precision, leaving your floors spotless.", "Robot Vacuum Pro", 299.99m },
-                    { new Guid("4d1dba4e-7ae3-4593-ad64-46edd0eb56b9"), new Guid("af46b819-fabf-4dd3-ad7d-15e83aae9088"), "The Smartphone X10 is packed with cutting-edge features, including a high-resolution camera and a powerful processor, making it perfect for staying connected and productive on the go.", "Smartphone X10", 499.99m },
-                    { new Guid("66d428c9-f651-4e64-bd25-02ef38e29d0c"), new Guid("080b309c-0931-4add-b380-3b17d6bacdd9"), "Gather your friends and family for hours of fun with the Board Game Bonanza. Featuring a variety of classic and modern games, this collection is sure to entertain players of all ages.", "Board Game Bonanza", 39.99m },
-                    { new Guid("74aa5138-6a85-41ce-bcdf-5fcc84b5013c"), new Guid("952c8da5-fdad-47c1-b2db-99038bf9aaed"), "Conquer any trail with confidence in the Hiking Boots Adventure. These rugged boots offer superior traction, waterproof protection, and unmatched durability for your outdoor adventures.", "Hiking Boots Adventure", 149.99m },
-                    { new Guid("973ad506-ff27-44f0-a262-adf7f869e6ca"), new Guid("af46b819-fabf-4dd3-ad7d-15e83aae9088"), "The Laptop ProBook 2022 offers superior performance and reliability, featuring a sleek design, long-lasting battery, and advanced security features for your peace of mind.", "Laptop ProBook 2022", 899.99m },
-                    { new Guid("a3a273e4-da8a-4a16-bf7a-726304953994"), new Guid("952c8da5-fdad-47c1-b2db-99038bf9aaed"), "Designed for serious runners, the Running Shoes Elite provide exceptional comfort, support, and durability, allowing you to achieve your personal best with every stride.", "Running Shoes Elite", 129.99m },
-                    { new Guid("bd2d9cdd-4a49-4891-9175-3d0d55043451"), new Guid("080b309c-0931-4add-b380-3b17d6bacdd9"), "Create unforgettable memories with the Outdoor Playset Deluxe. This premium playset includes a slide, swings, and a climbing wall, providing endless entertainment for kids in the backyard.", "Outdoor Playset Deluxe", 499.99m },
-                    { new Guid("c27ac005-b24f-496c-9723-99361d3b4683"), new Guid("3cdba833-5f0d-4237-9776-2da2d1753b88"), "Transform your home into a smart sanctuary with the Smart Home Hub Plus. Control your lights, appliances, and security cameras with ease, and enjoy the convenience of voice commands and automated routines.", "Smart Home Hub Plus", 199.99m }
+                    { new Guid("0cc02199-0634-41e9-a6cc-24a730c2d2af"), new Guid("33400c02-411a-4fd7-b9e6-a9c3ec963f9d"), "Create unforgettable memories with the Outdoor Playset Deluxe. This premium playset includes a slide, swings, and a climbing wall, providing endless entertainment for kids in the backyard.", "Outdoor Playset Deluxe", 499.99m },
+                    { new Guid("1d738996-2f13-43e8-bdce-2f76b3b01f23"), new Guid("183c939a-cd7b-4ffb-83ea-e91f9085e004"), "The Smartphone X10 is packed with cutting-edge features, including a high-resolution camera and a powerful processor, making it perfect for staying connected and productive on the go.", "Smartphone X10", 499.99m },
+                    { new Guid("42d737f2-544e-4154-9028-a1ea79ae609f"), new Guid("33400c02-411a-4fd7-b9e6-a9c3ec963f9d"), "Gather your friends and family for hours of fun with the Board Game Bonanza. Featuring a variety of classic and modern games, this collection is sure to entertain players of all ages.", "Board Game Bonanza", 39.99m },
+                    { new Guid("5fa0e495-1c6b-472c-920c-a6b92790bbb0"), new Guid("183c939a-cd7b-4ffb-83ea-e91f9085e004"), "The Laptop ProBook 2022 offers superior performance and reliability, featuring a sleek design, long-lasting battery, and advanced security features for your peace of mind.", "Laptop ProBook 2022", 899.99m },
+                    { new Guid("63ed73f9-ce8f-4ac2-9e8c-8119613ded4e"), new Guid("553950a3-9a67-46a0-9888-c7845543ea38"), "Conquer any trail with confidence in the Hiking Boots Adventure. These rugged boots offer superior traction, waterproof protection, and unmatched durability for your outdoor adventures.", "Hiking Boots Adventure", 149.99m },
+                    { new Guid("8aa330b2-ced2-4725-9baf-83622536e3e4"), new Guid("5554197c-61bd-4f40-b0da-b6fac201913a"), "Transform your home into a smart sanctuary with the Smart Home Hub Plus. Control your lights, appliances, and security cameras with ease, and enjoy the convenience of voice commands and automated routines.", "Smart Home Hub Plus", 199.99m },
+                    { new Guid("bc6d7884-7ee0-46ac-b877-98e0febd8b5c"), new Guid("5554197c-61bd-4f40-b0da-b6fac201913a"), "Say goodbye to manual vacuuming with the Robot Vacuum Pro. This intelligent robot cleaner navigates your home effortlessly, removing dirt, dust, and pet hair with precision, leaving your floors spotless.", "Robot Vacuum Pro", 299.99m },
+                    { new Guid("e994ca61-a37e-49a8-85a1-29b43d2f427a"), new Guid("553950a3-9a67-46a0-9888-c7845543ea38"), "Designed for serious runners, the Running Shoes Elite provide exceptional comfort, support, and durability, allowing you to achieve your personal best with every stride.", "Running Shoes Elite", 129.99m }
                 });
 
             migrationBuilder.InsertData(
@@ -168,16 +168,16 @@ namespace EcomShop.Api.Migrations
                 columns: new[] { "id", "product_id", "url" },
                 values: new object[,]
                 {
-                    { new Guid("0adc2c31-cf08-491a-a539-b124e738c965"), new Guid("c27ac005-b24f-496c-9723-99361d3b4683"), "https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("1107e309-a5b4-4cd3-bc0c-ef3692adb3b7"), new Guid("973ad506-ff27-44f0-a262-adf7f869e6ca"), "https://images.unsplash.com/photo-1559163499-413811fb2344?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("3ad05b24-9952-4b8f-b0f4-3f167c955c96"), new Guid("1d5dd931-5cca-4370-a0ee-2f3c4358b980"), "https://images.unsplash.com/photo-1603618090554-f7a5079ffb54?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("409b3c04-6702-4c3d-936a-0f524d8cb952"), new Guid("4d1dba4e-7ae3-4593-ad64-46edd0eb56b9"), "https://images.unsplash.com/photo-1598327106026-d9521da673d1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D" },
-                    { new Guid("491e3ad1-9ede-4e47-a8a7-de28f7d8570a"), new Guid("74aa5138-6a85-41ce-bcdf-5fcc84b5013c"), "https://images.unsplash.com/photo-1575987116913-e96e7d490b8a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("4c013041-b763-4a59-983e-cddba06b006c"), new Guid("bd2d9cdd-4a49-4891-9175-3d0d55043451"), "https://images.unsplash.com/photo-1587408163744-8482f78bc883?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("aaf89473-77c0-4cb4-ad5c-dd23d201eab7"), new Guid("66d428c9-f651-4e64-bd25-02ef38e29d0c"), "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("c14714eb-ca23-49b6-a43c-a22223b8d45e"), new Guid("1d5dd931-5cca-4370-a0ee-2f3c4358b980"), "https://images.unsplash.com/photo-1603618090561-412154b4bd1b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D" },
-                    { new Guid("d3340c47-3ec5-45f3-b10c-c6c35043a9de"), new Guid("a3a273e4-da8a-4a16-bf7a-726304953994"), "https://images.unsplash.com/photo-1562183241-b937e95585b6?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-                    { new Guid("f60d82d5-c1c8-47fc-9480-cee07ecf1cb8"), new Guid("4d1dba4e-7ae3-4593-ad64-46edd0eb56b9"), "https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=2118&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
+                    { new Guid("05843984-19d1-4bf8-aadf-ec2a6fce6915"), new Guid("0cc02199-0634-41e9-a6cc-24a730c2d2af"), "https://images.unsplash.com/photo-1587408163744-8482f78bc883?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("06c5d2e6-4225-4bce-a1b4-d555c26a7f3d"), new Guid("42d737f2-544e-4154-9028-a1ea79ae609f"), "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("13e17a05-e642-4728-8146-8c3d1c5133b0"), new Guid("8aa330b2-ced2-4725-9baf-83622536e3e4"), "https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("2293661f-ea6d-455c-a350-c7f2e04873af"), new Guid("e994ca61-a37e-49a8-85a1-29b43d2f427a"), "https://images.unsplash.com/photo-1562183241-b937e95585b6?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("6252aa5e-d4aa-46e9-809c-844ec4205e41"), new Guid("5fa0e495-1c6b-472c-920c-a6b92790bbb0"), "https://images.unsplash.com/photo-1559163499-413811fb2344?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("64e0bd8c-d27e-4218-ae10-dd7bfa65dca0"), new Guid("63ed73f9-ce8f-4ac2-9e8c-8119613ded4e"), "https://images.unsplash.com/photo-1575987116913-e96e7d490b8a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("a1b5b944-9fa0-41b5-8f44-c6b01f01be2c"), new Guid("1d738996-2f13-43e8-bdce-2f76b3b01f23"), "https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=2118&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("f34004ba-fa7c-4ec0-8538-2d91b9d381b0"), new Guid("bc6d7884-7ee0-46ac-b877-98e0febd8b5c"), "https://images.unsplash.com/photo-1603618090554-f7a5079ffb54?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+                    { new Guid("f3e7ee52-b8ab-4cd9-9fa6-ea7471d707be"), new Guid("1d738996-2f13-43e8-bdce-2f76b3b01f23"), "https://images.unsplash.com/photo-1598327106026-d9521da673d1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D" },
+                    { new Guid("f62cc9b3-2d01-47f1-a80b-7f6668d7f0c8"), new Guid("bc6d7884-7ee0-46ac-b877-98e0febd8b5c"), "https://images.unsplash.com/photo-1603618090561-412154b4bd1b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D" }
                 });
 
             migrationBuilder.CreateIndex(

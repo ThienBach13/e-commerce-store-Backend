@@ -18,7 +18,7 @@ namespace EcomShop.Api.repo
         }
         public virtual async Task<T> AddAsync(T entity)
         {
-            _data.Add(entity);
+            await _data.AddAsync(entity);
             await _databaseContext.SaveChangesAsync();
             return entity;
         }

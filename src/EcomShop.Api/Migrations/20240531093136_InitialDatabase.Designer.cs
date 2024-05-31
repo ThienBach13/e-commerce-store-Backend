@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EcomShop.Api.Migrations
 {
     [DbContext(typeof(EcomShopDbContext))]
-    [Migration("20240524045446_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240531093136_InitialDatabase")]
+    partial class InitialDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,25 +55,25 @@ namespace EcomShop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("af46b819-fabf-4dd3-ad7d-15e83aae9088"),
+                            Id = new Guid("183c939a-cd7b-4ffb-83ea-e91f9085e004"),
                             Image = "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                             Name = "Electronics"
                         },
                         new
                         {
-                            Id = new Guid("952c8da5-fdad-47c1-b2db-99038bf9aaed"),
+                            Id = new Guid("553950a3-9a67-46a0-9888-c7845543ea38"),
                             Image = "https://plus.unsplash.com/premium_photo-1682435561654-20d84cef00eb?q=80&w=1918&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                             Name = "Shoes"
                         },
                         new
                         {
-                            Id = new Guid("3cdba833-5f0d-4237-9776-2da2d1753b88"),
+                            Id = new Guid("5554197c-61bd-4f40-b0da-b6fac201913a"),
                             Image = "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                             Name = "Home Goods"
                         },
                         new
                         {
-                            Id = new Guid("080b309c-0931-4add-b380-3b17d6bacdd9"),
+                            Id = new Guid("33400c02-411a-4fd7-b9e6-a9c3ec963f9d"),
                             Image = "https://images.unsplash.com/photo-1500995617113-cf789362a3e1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                             Name = "Toys"
                         });
@@ -176,64 +176,64 @@ namespace EcomShop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4d1dba4e-7ae3-4593-ad64-46edd0eb56b9"),
-                            CategoryId = new Guid("af46b819-fabf-4dd3-ad7d-15e83aae9088"),
+                            Id = new Guid("1d738996-2f13-43e8-bdce-2f76b3b01f23"),
+                            CategoryId = new Guid("183c939a-cd7b-4ffb-83ea-e91f9085e004"),
                             Description = "The Smartphone X10 is packed with cutting-edge features, including a high-resolution camera and a powerful processor, making it perfect for staying connected and productive on the go.",
                             Name = "Smartphone X10",
                             Price = 499.99m
                         },
                         new
                         {
-                            Id = new Guid("973ad506-ff27-44f0-a262-adf7f869e6ca"),
-                            CategoryId = new Guid("af46b819-fabf-4dd3-ad7d-15e83aae9088"),
+                            Id = new Guid("5fa0e495-1c6b-472c-920c-a6b92790bbb0"),
+                            CategoryId = new Guid("183c939a-cd7b-4ffb-83ea-e91f9085e004"),
                             Description = "The Laptop ProBook 2022 offers superior performance and reliability, featuring a sleek design, long-lasting battery, and advanced security features for your peace of mind.",
                             Name = "Laptop ProBook 2022",
                             Price = 899.99m
                         },
                         new
                         {
-                            Id = new Guid("a3a273e4-da8a-4a16-bf7a-726304953994"),
-                            CategoryId = new Guid("952c8da5-fdad-47c1-b2db-99038bf9aaed"),
+                            Id = new Guid("e994ca61-a37e-49a8-85a1-29b43d2f427a"),
+                            CategoryId = new Guid("553950a3-9a67-46a0-9888-c7845543ea38"),
                             Description = "Designed for serious runners, the Running Shoes Elite provide exceptional comfort, support, and durability, allowing you to achieve your personal best with every stride.",
                             Name = "Running Shoes Elite",
                             Price = 129.99m
                         },
                         new
                         {
-                            Id = new Guid("74aa5138-6a85-41ce-bcdf-5fcc84b5013c"),
-                            CategoryId = new Guid("952c8da5-fdad-47c1-b2db-99038bf9aaed"),
+                            Id = new Guid("63ed73f9-ce8f-4ac2-9e8c-8119613ded4e"),
+                            CategoryId = new Guid("553950a3-9a67-46a0-9888-c7845543ea38"),
                             Description = "Conquer any trail with confidence in the Hiking Boots Adventure. These rugged boots offer superior traction, waterproof protection, and unmatched durability for your outdoor adventures.",
                             Name = "Hiking Boots Adventure",
                             Price = 149.99m
                         },
                         new
                         {
-                            Id = new Guid("c27ac005-b24f-496c-9723-99361d3b4683"),
-                            CategoryId = new Guid("3cdba833-5f0d-4237-9776-2da2d1753b88"),
+                            Id = new Guid("8aa330b2-ced2-4725-9baf-83622536e3e4"),
+                            CategoryId = new Guid("5554197c-61bd-4f40-b0da-b6fac201913a"),
                             Description = "Transform your home into a smart sanctuary with the Smart Home Hub Plus. Control your lights, appliances, and security cameras with ease, and enjoy the convenience of voice commands and automated routines.",
                             Name = "Smart Home Hub Plus",
                             Price = 199.99m
                         },
                         new
                         {
-                            Id = new Guid("1d5dd931-5cca-4370-a0ee-2f3c4358b980"),
-                            CategoryId = new Guid("3cdba833-5f0d-4237-9776-2da2d1753b88"),
+                            Id = new Guid("bc6d7884-7ee0-46ac-b877-98e0febd8b5c"),
+                            CategoryId = new Guid("5554197c-61bd-4f40-b0da-b6fac201913a"),
                             Description = "Say goodbye to manual vacuuming with the Robot Vacuum Pro. This intelligent robot cleaner navigates your home effortlessly, removing dirt, dust, and pet hair with precision, leaving your floors spotless.",
                             Name = "Robot Vacuum Pro",
                             Price = 299.99m
                         },
                         new
                         {
-                            Id = new Guid("66d428c9-f651-4e64-bd25-02ef38e29d0c"),
-                            CategoryId = new Guid("080b309c-0931-4add-b380-3b17d6bacdd9"),
+                            Id = new Guid("42d737f2-544e-4154-9028-a1ea79ae609f"),
+                            CategoryId = new Guid("33400c02-411a-4fd7-b9e6-a9c3ec963f9d"),
                             Description = "Gather your friends and family for hours of fun with the Board Game Bonanza. Featuring a variety of classic and modern games, this collection is sure to entertain players of all ages.",
                             Name = "Board Game Bonanza",
                             Price = 39.99m
                         },
                         new
                         {
-                            Id = new Guid("bd2d9cdd-4a49-4891-9175-3d0d55043451"),
-                            CategoryId = new Guid("080b309c-0931-4add-b380-3b17d6bacdd9"),
+                            Id = new Guid("0cc02199-0634-41e9-a6cc-24a730c2d2af"),
+                            CategoryId = new Guid("33400c02-411a-4fd7-b9e6-a9c3ec963f9d"),
                             Description = "Create unforgettable memories with the Outdoor Playset Deluxe. This premium playset includes a slide, swings, and a climbing wall, providing endless entertainment for kids in the backyard.",
                             Name = "Outdoor Playset Deluxe",
                             Price = 499.99m
@@ -267,62 +267,62 @@ namespace EcomShop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f60d82d5-c1c8-47fc-9480-cee07ecf1cb8"),
-                            ProductId = new Guid("4d1dba4e-7ae3-4593-ad64-46edd0eb56b9"),
+                            Id = new Guid("a1b5b944-9fa0-41b5-8f44-c6b01f01be2c"),
+                            ProductId = new Guid("1d738996-2f13-43e8-bdce-2f76b3b01f23"),
                             Url = "https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=2118&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("1107e309-a5b4-4cd3-bc0c-ef3692adb3b7"),
-                            ProductId = new Guid("973ad506-ff27-44f0-a262-adf7f869e6ca"),
+                            Id = new Guid("6252aa5e-d4aa-46e9-809c-844ec4205e41"),
+                            ProductId = new Guid("5fa0e495-1c6b-472c-920c-a6b92790bbb0"),
                             Url = "https://images.unsplash.com/photo-1559163499-413811fb2344?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("d3340c47-3ec5-45f3-b10c-c6c35043a9de"),
-                            ProductId = new Guid("a3a273e4-da8a-4a16-bf7a-726304953994"),
+                            Id = new Guid("2293661f-ea6d-455c-a350-c7f2e04873af"),
+                            ProductId = new Guid("e994ca61-a37e-49a8-85a1-29b43d2f427a"),
                             Url = "https://images.unsplash.com/photo-1562183241-b937e95585b6?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("491e3ad1-9ede-4e47-a8a7-de28f7d8570a"),
-                            ProductId = new Guid("74aa5138-6a85-41ce-bcdf-5fcc84b5013c"),
+                            Id = new Guid("64e0bd8c-d27e-4218-ae10-dd7bfa65dca0"),
+                            ProductId = new Guid("63ed73f9-ce8f-4ac2-9e8c-8119613ded4e"),
                             Url = "https://images.unsplash.com/photo-1575987116913-e96e7d490b8a?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("0adc2c31-cf08-491a-a539-b124e738c965"),
-                            ProductId = new Guid("c27ac005-b24f-496c-9723-99361d3b4683"),
+                            Id = new Guid("13e17a05-e642-4728-8146-8c3d1c5133b0"),
+                            ProductId = new Guid("8aa330b2-ced2-4725-9baf-83622536e3e4"),
                             Url = "https://images.unsplash.com/photo-1558089687-f282ffcbc126?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("3ad05b24-9952-4b8f-b0f4-3f167c955c96"),
-                            ProductId = new Guid("1d5dd931-5cca-4370-a0ee-2f3c4358b980"),
+                            Id = new Guid("f34004ba-fa7c-4ec0-8538-2d91b9d381b0"),
+                            ProductId = new Guid("bc6d7884-7ee0-46ac-b877-98e0febd8b5c"),
                             Url = "https://images.unsplash.com/photo-1603618090554-f7a5079ffb54?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("aaf89473-77c0-4cb4-ad5c-dd23d201eab7"),
-                            ProductId = new Guid("66d428c9-f651-4e64-bd25-02ef38e29d0c"),
+                            Id = new Guid("06c5d2e6-4225-4bce-a1b4-d555c26a7f3d"),
+                            ProductId = new Guid("42d737f2-544e-4154-9028-a1ea79ae609f"),
                             Url = "https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("4c013041-b763-4a59-983e-cddba06b006c"),
-                            ProductId = new Guid("bd2d9cdd-4a49-4891-9175-3d0d55043451"),
+                            Id = new Guid("05843984-19d1-4bf8-aadf-ec2a6fce6915"),
+                            ProductId = new Guid("0cc02199-0634-41e9-a6cc-24a730c2d2af"),
                             Url = "https://images.unsplash.com/photo-1587408163744-8482f78bc883?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         },
                         new
                         {
-                            Id = new Guid("c14714eb-ca23-49b6-a43c-a22223b8d45e"),
-                            ProductId = new Guid("1d5dd931-5cca-4370-a0ee-2f3c4358b980"),
+                            Id = new Guid("f62cc9b3-2d01-47f1-a80b-7f6668d7f0c8"),
+                            ProductId = new Guid("bc6d7884-7ee0-46ac-b877-98e0febd8b5c"),
                             Url = "https://images.unsplash.com/photo-1603618090561-412154b4bd1b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D"
                         },
                         new
                         {
-                            Id = new Guid("409b3c04-6702-4c3d-936a-0f524d8cb952"),
-                            ProductId = new Guid("4d1dba4e-7ae3-4593-ad64-46edd0eb56b9"),
+                            Id = new Guid("f3e7ee52-b8ab-4cd9-9fa6-ea7471d707be"),
+                            ProductId = new Guid("1d738996-2f13-43e8-bdce-2f76b3b01f23"),
                             Url = "https://images.unsplash.com/photo-1598327106026-d9521da673d1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8fHw%3D"
                         });
                 });
@@ -371,7 +371,7 @@ namespace EcomShop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("673f692f-8f0a-462e-9624-63c8bcd2ec13"),
+                            Id = new Guid("c25a7708-c759-424c-84ee-5f7f9fd844a7"),
                             Avatar = "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg",
                             Email = "admin@mail.com",
                             Name = "Admin",
@@ -380,7 +380,7 @@ namespace EcomShop.Api.Migrations
                         },
                         new
                         {
-                            Id = new Guid("752816e8-da77-4c6b-b4c7-0531136d34f3"),
+                            Id = new Guid("ff78662b-d35d-46e4-91b4-3c012e9262d2"),
                             Avatar = "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg",
                             Email = "john@mail.com",
                             Name = "John",
@@ -404,7 +404,7 @@ namespace EcomShop.Api.Migrations
             modelBuilder.Entity("EcomShop.Core.src.Entity.OrderedLineItem", b =>
                 {
                     b.HasOne("EcomShop.Core.src.Entity.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -425,7 +425,7 @@ namespace EcomShop.Api.Migrations
             modelBuilder.Entity("EcomShop.Core.src.Entity.Product", b =>
                 {
                     b.HasOne("EcomShop.Core.src.Entity.Category", "Category")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -444,6 +444,16 @@ namespace EcomShop.Api.Migrations
                         .HasConstraintName("fk_product_images_products_product_id");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("EcomShop.Core.src.Entity.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("EcomShop.Core.src.Entity.Order", b =>
+                {
+                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("EcomShop.Core.src.Entity.Product", b =>

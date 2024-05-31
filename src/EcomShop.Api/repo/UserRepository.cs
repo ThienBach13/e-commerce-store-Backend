@@ -17,5 +17,21 @@ namespace EcomShop.Api.repo
         {
             return await _data.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task<bool> CreateUserAsync(User user)
+        {
+
+            var existingUser = await _data.FirstOrDefaultAsync(u => u.Email == user.Email);
+
+            if (existingUser != null)
+            {
+                return false;
+            }
+            user.Id = Guid.NewGuid();
+            _data.Add(user);
+            await _databaseContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

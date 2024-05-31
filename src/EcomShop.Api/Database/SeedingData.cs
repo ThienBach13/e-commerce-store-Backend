@@ -2,6 +2,8 @@
 
 using EcomShop.Core.src.Entity;
 using EcomShop.Core.src.ValueObject;
+using BCrypt.Net;
+
 
 namespace EcomShop.Api.Database
 {
@@ -61,8 +63,9 @@ namespace EcomShop.Api.Database
         public static List<User> GetUsersSeed()
         {
             var users = new List<User>
+
         {
-            new User("Admin", "admin@mail.com", "admin@123", "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", Role.Admin),
+            new User("thien", "thien@123", "$2a$11$JV/LvGOuu60w1GFJUCWgfemizje/BG1Y/im4mchxo0YG4i1Q1QsGK", "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", Role.Admin),
             new User("John", "john@mail.com", "john@123", "https://static.vecteezy.com/system/resources/thumbnails/006/487/917/small_2x/man-avatar-icon-free-vector.jpg", Role.Customer)
         };
             return users;

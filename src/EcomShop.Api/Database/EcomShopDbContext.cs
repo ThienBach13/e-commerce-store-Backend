@@ -23,8 +23,8 @@ public class EcomShopDbContext : DbContext
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
     // db connection string: host; server name; username; pw; db name
-    optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Database=EcomShop;Port=5432;Password=910034"); // PostgreSQL
-    optionsBuilder.UseSnakeCaseNamingConvention(); // convert C# class names to snake_case table names in database
+    optionsBuilder.UseNpgsql("Host=ep-holy-poetry-a2h0ev99.eu-central-1.aws.neon.tech;Username=EcomShop_owner;Password=N1B2GsZlxHdP;Database=EcomShop;SslMode=Require"); // PostgreSQL
+    optionsBuilder.UseSnakeCaseNamingConvention();
     base.OnConfiguring(optionsBuilder);
   }
 
